@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/widgets/settings_item.dart';
 import 'package:flutter_movie_app/widgets/user_favourite_item.dart';
 
+import 'search.dart';
+
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
@@ -18,6 +20,21 @@ class _SettingsState extends State<Settings> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(
+              right: 10.0,
+            ),
+            child: IconButton(
+              onPressed: () => Navigator.pushNamed(context, Search.id),
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+                size: 25.0,
+              ),
+            ),
+          )
+        ],
         title: Text(
           'Settings',
         ),

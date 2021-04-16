@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/about_app.dart';
 import 'screens/home.dart';
+import 'screens/search.dart';
 import 'screens/splash.dart';
 
 void main() {
@@ -38,9 +38,10 @@ class MovieApp extends StatelessWidget {
         routes: {
           Splash.id: (context) => Splash(),
           Home.id: (context) => Home(),
+          Search.id: (context) => Search(),
           // MovieDetailsScreen.id: (context) => MovieDetailsScreen(),
           // SeriesDetailsScreen.id: (context) => SeriesDetailsScreen(),
-          // Search.id: (context) => Search(),
+          Search.id: (context) => Search(),
           // AboutApp.id: (context) => AboutApp(),
         },
       ),
