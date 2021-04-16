@@ -1,0 +1,14 @@
+const String MOVIE_BASE_URL = 'https://api.themoviedb.org/3/movie/';
+const String SERIES_BASE_URL = 'https://api.themoviedb.org/3/tv/';
+const String API_KEY = 'api_key=2125e0d6e4f526a2515c09e6c4b52dcb';
+const String IMAGE_500 = 'https://image.tmdb.org/t/p/w500';
+const String IMAGE_200 = 'https://image.tmdb.org/t/p/w200';
+const String PAGES = '&page=';
+const String MOVIE_NOW_PLAYING = 'now_playing?';
+const String MOVIE_TOP_RATED = 'top_rated?';
+const String MOVIE_POPULAR = 'popular?';
+const String MOVIE_UPCOMING = 'upcoming?';
+const String AIRING_TODAY = 'airing_today?';
+const String ON_THE_AIR = 'on_the_air?';
+const String SERIES_POPULAR = 'popular?';
+const String SERIES_TOP_RATED = 'top_rated?';
