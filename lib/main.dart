@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/provider/home_provider.dart';
+import 'package:flutter_movie_app/provider/now_playing_provider.dart';
+import 'package:flutter_movie_app/provider/popular_provider.dart';
+import 'package:flutter_movie_app/provider/top_rated_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/home.dart';
@@ -17,6 +20,15 @@ class MovieApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => NowPlayingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TopRatedProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PopularProvider(),
         ),
       ],
       child: MaterialApp(
@@ -41,7 +53,6 @@ class MovieApp extends StatelessWidget {
           Search.id: (context) => Search(),
           // MovieDetailsScreen.id: (context) => MovieDetailsScreen(),
           // SeriesDetailsScreen.id: (context) => SeriesDetailsScreen(),
-          Search.id: (context) => Search(),
           // AboutApp.id: (context) => AboutApp(),
         },
       ),

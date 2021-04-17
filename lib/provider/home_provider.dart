@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_movie_app/screens/now_playing.dart';
 import 'package:flutter_movie_app/screens/popular.dart';
-import 'package:flutter_movie_app/screens/settings.dart';
+import 'package:flutter_movie_app/screens/profile.dart';
 import 'package:flutter_movie_app/screens/top_rated.dart';
 import 'package:flutter_movie_app/screens/upcoming.dart';
 
@@ -30,7 +30,7 @@ class HomeProvider with ChangeNotifier {
         _currentWidget = Upcoming();
         break;
       case 4:
-        _currentWidget = Settings();
+        _currentWidget = Profile();
         break;
     }
   }

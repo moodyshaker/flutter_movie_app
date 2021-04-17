@@ -5,12 +5,12 @@ import 'package:flutter_movie_app/widgets/user_favourite_item.dart';
 
 import 'search.dart';
 
-class Settings extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _SettingsState createState() => _SettingsState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _SettingsState extends State<Settings> {
+class _ProfileState extends State<Profile> {
   // IconData loginIcon = SimpleLineIcons.login;
 
   @override
@@ -36,7 +36,7 @@ class _SettingsState extends State<Settings> {
           )
         ],
         title: Text(
-          'Settings',
+          'Profile',
         ),
       ),
       body: SingleChildScrollView(
