@@ -24,6 +24,7 @@ dependencies:
   expand_widget:
   provider:
   url_launcher:
+  shimmer:
 
 dev_dependencies:
   flutter_test:
@@ -32,3 +33,5 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - images/

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'home.dart';
 
@@ -11,15 +12,18 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   @override
   void initState() {
     super.initState();
     Future.delayed(
-        Duration(
-          seconds: 3,
-        ),
-            () => Navigator.pushReplacementNamed(context, Home.id));
+      Duration(
+        seconds: 1,
+      ),
+      () => Navigator.pushReplacementNamed(
+        context,
+        Home.id,
+      ),
+    );
   }
 
   @override
@@ -41,19 +45,23 @@ class _SplashState extends State<Splash> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 20.0),
-                child: Text(
-                  'Movie DB',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 20.0,
+                child: Shimmer.fromColors(
+                  highlightColor: Colors.white,
+                  baseColor: Colors.black,
+                  child: Text(
+                    'Movie DB',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w700
+                    ),
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                  top: 100.0,
+                  top: 50.0,
                 ),
-                child: SpinKitCubeGrid(
+                child: SpinKitDoubleBounce(
                   color: Colors.grey,
                   size: 30.0,
                 ),

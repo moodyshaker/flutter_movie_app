@@ -46,7 +46,7 @@ class MovieApp extends StatelessWidget {
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.white,
         )),
-        initialRoute: Home.id,
+        initialRoute: Splash.id,
         routes: {
           Splash.id: (context) => Splash(),
           Home.id: (context) => Home(),
