@@ -5,6 +5,7 @@ import 'package:flutter_movie_app/provider/popular_provider.dart';
 import 'package:flutter_movie_app/provider/top_rated_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'provider/nowplaySubProviders/m_provider.dart';
 import 'screens/home.dart';
 import 'screens/search.dart';
 import 'screens/splash.dart';
@@ -29,6 +30,9 @@ class MovieApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => PopularProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => NPMProvider(),
         ),
       ],
       child: MaterialApp(

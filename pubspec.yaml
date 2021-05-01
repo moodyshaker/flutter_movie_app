@@ -23,12 +23,17 @@ dependencies:
   youtube_player_flutter:
   expand_widget:
   provider:
+  json_annotation: ^3.1.1
+  flutter_screenutil: ^5.0.0
   url_launcher:
   shimmer:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  build_runner:
+  json_serializable: ^3.5.1
 
 flutter:
 

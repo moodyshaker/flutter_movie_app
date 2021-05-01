@@ -17,7 +17,7 @@ class _SplashState extends State<Splash> {
     super.initState();
     Future.delayed(
       Duration(
-        seconds: 1,
+        milliseconds: 2000,
       ),
       () => Navigator.pushReplacementNamed(
         context,

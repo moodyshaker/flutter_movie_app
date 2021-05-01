@@ -1,5 +1,5 @@
 // import 'package:flutter/material.dart';
-// import '../../models/movies/movie_result.dart';
+// import '../../models/movies/movie.dart';
 // import '../screens/movie_details_screen.dart';
 // import 'moive_item.dart';
 //
