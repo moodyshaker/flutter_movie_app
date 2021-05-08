@@ -37,7 +37,9 @@ class MovieItem extends StatelessWidget {
                 ),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.circular(
+                  12.0,
+                ),
                 child: FancyShimmerImage(
                   imageUrl: '$IMAGE_200${item.posterPath}',
                   boxFit: BoxFit.fill,
@@ -54,11 +56,10 @@ class MovieItem extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(
-                        0.8,
-                      ),
-                      borderRadius: BorderRadius.circular(12.0)
-                    ),
+                        color: Colors.white.withOpacity(
+                          0.8,
+                        ),
+                        borderRadius: BorderRadius.circular(12.0)),
                     padding: EdgeInsets.all(
                       8.0,
                     ),
