@@ -36,15 +36,16 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
                 color: Theme.of(context).primaryColor,
               ),
             )
-          : GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 8/12
+          : RefreshIndicator(
+              onRefresh: () => data.reloadPage(),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, childAspectRatio: 8 / 12),
+                itemBuilder: (context, i) => MovieItem(
+                  item: data.movies[i],
+                ),
+                itemCount: data.movies.length,
               ),
-              itemBuilder: (context, i) => MovieItem(
-                item: data.movies[i],
-              ),
-              itemCount: data.movies.length,
             ),
     );
   }

@@ -12,7 +12,6 @@ class NPMProvider with ChangeNotifier {
 
   int get pageNum => _pageNum;
 
-
   List<Results> get movies => _movies;
 
   Future<String> getNPMovies() async {
@@ -36,6 +35,14 @@ class NPMProvider with ChangeNotifier {
     _pageNum++;
     await getNPMovies();
     loadMore = false;
+    notifyListeners();
+  }
+
+  Future<void> reloadPage() async {
+    _movies.clear();
+    notifyListeners();
+    _pageNum = 1;
+    await getNPMovies();
     notifyListeners();
   }
 }

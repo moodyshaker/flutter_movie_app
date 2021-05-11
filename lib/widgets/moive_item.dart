@@ -27,10 +27,10 @@ class MovieItem extends StatelessWidget {
         margin: EdgeInsets.all(
           6.0,
         ),
-        child: Stack(
+        child: Column(
           children: [
             Card(
-              // margin: EdgeInsets.all(0.0),
+              elevation: 4.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
                   12.0,
@@ -41,6 +41,7 @@ class MovieItem extends StatelessWidget {
                   12.0,
                 ),
                 child: FancyShimmerImage(
+                  height: 220.0,
                   imageUrl: '$IMAGE_200${item.posterPath}',
                   boxFit: BoxFit.fill,
                   errorWidget: Image.asset(
@@ -50,58 +51,47 @@ class MovieItem extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Wrap(
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 4.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(
-                          0.8,
-                        ),
-                        borderRadius: BorderRadius.circular(12.0)),
-                    padding: EdgeInsets.all(
-                      8.0,
+                  Text(
+                    item.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16.0,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          item.title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16.0,
-                          ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        DateFormat.yMMMd().format(
+                          DateTime.parse(item.releaseDate),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              DateFormat.yMMMd().format(
-                                DateTime.parse(item.releaseDate),
-                              ),
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 12.0,
-                              ),
-                            ),
-                            CircularPercentIndicator(
-                              radius: 35.0,
-                              backgroundColor: _backgroundColor ?? Colors.white,
-                              progressColor: _progressColor ?? Colors.red,
-                              percent: item.voteAverage / 10,
-                              center: Text(
-                                '${item.voteAverage}',
-                              ),
-                            ),
-                          ],
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12.0,
+                          color: Colors.grey[600],
                         ),
-                      ],
-                    ),
+                      ),
+                      CircularPercentIndicator(
+                        radius: 35.0,
+                        backgroundColor: _backgroundColor ?? Colors.white,
+                        progressColor: _progressColor ?? Colors.red,
+                        percent: item.voteAverage / 10,
+                        center: Text(
+                          '${item.voteAverage}',
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
