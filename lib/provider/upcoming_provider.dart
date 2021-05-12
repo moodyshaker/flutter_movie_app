@@ -1,11 +1,13 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_movie_app/constant.dart';
 import 'package:flutter_movie_app/models/movies/movie.dart';
 import 'package:flutter_movie_app/models/movies/movie_result.dart';
+import 'package:flutter_movie_app/screens/upcoming.dart';
 import 'package:http/http.dart';
 
-class NPMProvider with ChangeNotifier {
+class UCProvider with ChangeNotifier {
   int _pageNum = 1;
   bool loadMore = false;
   List<Results> _movies = [];
@@ -14,11 +16,11 @@ class NPMProvider with ChangeNotifier {
 
   List<Results> get movies => _movies;
 
-  Future<String> getNPMovies() async {
+  Future<String> getUCMovies() async {
     try {
       Response r = await get(
         Uri.parse(
-          '$MOVIE_BASE_URL$NOW_PLAYING$API_KEY$PAGES$_pageNum',
+          '$MOVIE_BASE_URL$UPCOMING$API_KEY$PAGES$_pageNum',
         ),
       );
       Movie m = Movie.fromJson(json.decode(r.body));
@@ -27,7 +29,8 @@ class NPMProvider with ChangeNotifier {
       } else {
         _movies = [];
         _movies.addAll(m.results);
-      }      return SUCCESS;
+      }
+      return SUCCESS;
     } catch (e) {
       return e.toString();
     }
@@ -37,7 +40,7 @@ class NPMProvider with ChangeNotifier {
     loadMore = true;
     notifyListeners();
     _pageNum++;
-    await getNPMovies();
+    await getUCMovies();
     loadMore = false;
     notifyListeners();
   }
@@ -46,7 +49,7 @@ class NPMProvider with ChangeNotifier {
     _movies.clear();
     notifyListeners();
     _pageNum = 1;
-    await getNPMovies();
+    await getUCMovies();
     notifyListeners();
   }
 }

@@ -1,8 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/widgets/settings_item.dart';
 import 'package:flutter_movie_app/widgets/user_favourite_item.dart';
-
 import 'search.dart';
 
 class Profile extends StatefulWidget {

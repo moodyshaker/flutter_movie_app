@@ -1,8 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter_movie_app/models/series/series_result.dart';
-
-import '../../constant.dart';
-
 part 'series.g.dart';
 
 @JsonSerializable()
