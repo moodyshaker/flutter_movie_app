@@ -35,7 +35,7 @@ class _UpcomingState extends State<Upcoming> {
     return Consumer<UCProvider>(
       builder: (context, data, child) => NestedScrollView(
         floatHeaderSlivers: true,
-        headerSliverBuilder: (context, innerBox) => [
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             floating: true,
             centerTitle: true,

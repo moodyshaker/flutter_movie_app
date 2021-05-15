@@ -22,57 +22,61 @@ class _NowPlayingState extends State<NowPlaying>
   @override
   Widget build(BuildContext context) {
     return Consumer<NowPlayingProvider>(
-      builder: (context, data, child) => Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          centerTitle: true,
-          bottom: TabBar(
-            controller: _controller,
-            labelColor: Theme.of(context).primaryColor,
-            unselectedLabelColor: Colors.white,
-            indicatorColor: Colors.white,
-            indicator: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(
-                    15,
-                  ),
-                  topLeft: Radius.circular(
-                    15,
-                  ),
-                )),
-            tabs: [
-              Tab(
-                text: 'Movies',
-              ),
-              Tab(
-                text: 'Airing Today',
-              ),
-              Tab(
-                text: 'On The Air',
-              ),
-            ],
-            onTap: data.setCurrentIndex,
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                right: 10.0,
-              ),
-              child: IconButton(
-                onPressed: () => Navigator.pushNamed(context, Search.id),
-                icon: Icon(
-                  Icons.search,
+      builder: (context, data, child) => NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            elevation: 0.0,
+            pinned: true,
+            floating: true,
+            centerTitle: true,
+            bottom: TabBar(
+              controller: _controller,
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.white,
+              indicatorColor: Colors.white,
+              indicator: BoxDecoration(
                   color: Colors.white,
-                  size: 25.0,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(
+                      15,
+                    ),
+                    topLeft: Radius.circular(
+                      15,
+                    ),
+                  )),
+              tabs: [
+                Tab(
+                  text: 'Movies',
                 ),
-              ),
-            )
-          ],
-          title: Text(
-            'Now Playing',
+                Tab(
+                  text: 'Airing Today',
+                ),
+                Tab(
+                  text: 'On The Air',
+                ),
+              ],
+              onTap: data.setCurrentIndex,
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(
+                  right: 10.0,
+                ),
+                child: IconButton(
+                  onPressed: () => Navigator.pushNamed(context, Search.id),
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 25.0,
+                  ),
+                ),
+              )
+            ],
+            title: Text(
+              'Now Playing',
+            ),
           ),
-        ),
+        ],
         body: data.currentWidget,
       ),
     );

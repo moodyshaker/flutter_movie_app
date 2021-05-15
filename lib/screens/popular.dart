@@ -25,54 +25,58 @@ class _PopularState extends State<Popular> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Consumer<PopularProvider>(
-      builder: (context, data, child) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0.0,
-          bottom: TabBar(
-            controller: _controller,
-            labelColor: Theme.of(context).primaryColor,
-            unselectedLabelColor: Colors.white,
-            indicatorColor: Colors.white,
-            indicator: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(
-                    15,
-                  ),
-                  topLeft: Radius.circular(
-                    15,
-                  ),
-                )),
-            tabs: [
-              Tab(
-                text: 'Movies',
-              ),
-              Tab(
-                text: 'Series',
-              ),
-            ],
-            onTap: data.setCurrentIndex,
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                right: 10.0,
-              ),
-              child: IconButton(
-                onPressed: () => Navigator.pushNamed(context, Search.id),
-                icon: Icon(
-                  Icons.search,
+      builder: (context, data, child) => NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            centerTitle: true,
+            elevation: 0.0,
+            floating: true,
+            pinned: true,
+            bottom: TabBar(
+              controller: _controller,
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.white,
+              indicatorColor: Colors.white,
+              indicator: BoxDecoration(
                   color: Colors.white,
-                  size: 25.0,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(
+                      15,
+                    ),
+                    topLeft: Radius.circular(
+                      15,
+                    ),
+                  )),
+              tabs: [
+                Tab(
+                  text: 'Movies',
                 ),
-              ),
-            )
-          ],
-          title: Text(
-            'Popular',
+                Tab(
+                  text: 'Series',
+                ),
+              ],
+              onTap: data.setCurrentIndex,
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(
+                  right: 10.0,
+                ),
+                child: IconButton(
+                  onPressed: () => Navigator.pushNamed(context, Search.id),
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 25.0,
+                  ),
+                ),
+              )
+            ],
+            title: Text(
+              'Popular',
+            ),
           ),
-        ),
+        ],
         body: data.currentWidget,
       ),
     );
