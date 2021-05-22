@@ -17,7 +17,7 @@ class HomeProvider with ChangeNotifier {
 
   void getCurrentWidget() {
     switch (_currentIndex) {
-      case 0:
+      case 0: 
         _currentWidget = NowPlaying();
         break;
       case 1:
