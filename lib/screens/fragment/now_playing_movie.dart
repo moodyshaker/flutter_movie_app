@@ -12,6 +12,7 @@ class NowPlayingMovies extends StatefulWidget {
 class _NowPlayingMoviesState extends State<NowPlayingMovies> {
   NPMProvider _npmProvider;
   bool _isLoading = true;
+  bool _loadMore = false;
   ScrollController _controller;
 
   @override
@@ -22,8 +23,11 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
     getMovies();
     _controller.addListener(() {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        if (!_npmProvider.loadMore) {
-          _npmProvider.nextPage();
+        if (!_loadMore) {
+          setState(() {
+            _loadMore = true;
+          });
+          loadMore();
         }
       }
     });
@@ -54,7 +58,6 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
           : RefreshIndicator(
               onRefresh: () => data.reloadPage(),
               child: Stack(
-                alignment: Alignment.bottomCenter,
                 children: [
                   GridView.builder(
                     controller: _controller,
@@ -65,28 +68,35 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
                     ),
                     itemCount: data.movies.length,
                   ),
-                  data.loadMore
-                      ? Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 8.0,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Loading',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      height: _loadMore ? 50.0 : 0.0,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8.0,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Loading',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
-                        )
-                      : Container(),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
     );
+  }
+
+  void loadMore() async {
+    await _npmProvider.nextPage();
+    setState(() {
+      _loadMore = false;
+    });
   }
 }
