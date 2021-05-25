@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_movie_app/constant.dart';
 import 'package:flutter_movie_app/models/movies/movie.dart';
@@ -40,6 +41,7 @@ class NPMProvider with ChangeNotifier {
     await getNPMovies();
     loadMore = false;
     notifyListeners();
+    print(_pageNum);
   }
 
   Future<void> reloadPage() async {

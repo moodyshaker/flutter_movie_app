@@ -12,12 +12,21 @@ class NowPlayingMovies extends StatefulWidget {
 class _NowPlayingMoviesState extends State<NowPlayingMovies> {
   NPMProvider _npmProvider;
   bool _isLoading = true;
+  ScrollController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController();
     _npmProvider = Provider.of<NPMProvider>(context, listen: false);
     getMovies();
+    _controller.addListener(() {
+      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+        if (!_npmProvider.loadMore) {
+          _npmProvider.nextPage();
+        }
+      }
+    });
   }
 
   void getMovies() async {
@@ -25,6 +34,12 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,13 +53,38 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
             )
           : RefreshIndicator(
               onRefresh: () => data.reloadPage(),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: 8 / 12),
-                itemBuilder: (context, i) => MovieItem(
-                  item: data.movies[i],
-                ),
-                itemCount: data.movies.length,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  GridView.builder(
+                    controller: _controller,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 8 / 12),
+                    itemBuilder: (context, i) => MovieItem(
+                      item: data.movies[i],
+                    ),
+                    itemCount: data.movies.length,
+                  ),
+                  data.loadMore
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 8.0,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Loading',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                ],
               ),
             ),
     );

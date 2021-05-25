@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_movie_app/provider/home_provider.dart';
 import 'package:flutter_movie_app/provider/now_playing_provider.dart';
 import 'package:flutter_movie_app/provider/nowplaySubProviders/at_provider.dart';
@@ -23,6 +24,7 @@ void main() {
 class MovieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
