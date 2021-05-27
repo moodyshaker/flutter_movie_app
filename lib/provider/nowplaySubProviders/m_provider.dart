@@ -34,6 +34,10 @@ class NPMProvider with ChangeNotifier {
     }
   }
 
+  void setPage(int pageNum) {
+    _pageNum = pageNum;
+  }
+
   Future<void> nextPage() async {
     _pageNum++;
     await getNPMovies();

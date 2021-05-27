@@ -34,6 +34,7 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
   }
 
   void getMovies() async {
+    _npmProvider.setPage(1);
     await _npmProvider.getNPMovies();
     setState(() {
       _isLoading = false;
@@ -57,33 +58,29 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
             )
           : RefreshIndicator(
               onRefresh: () => data.reloadPage(),
-              child: Stack(
+              child: Column(
                 children: [
-                  GridView.builder(
-                    controller: _controller,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, childAspectRatio: 8 / 12),
-                    itemBuilder: (context, i) => MovieItem(
-                      item: data.movies[i],
-                    ),
-                    itemCount: data.movies.length,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      height: _loadMore ? 50.0 : 0.0,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8.0,
+                  Expanded(
+                    child: GridView.builder(
+                      controller: _controller,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 8 / 12),
+                      itemBuilder: (context, i) => MovieItem(
+                        item: data.movies[i],
                       ),
-                      child: Center(
-                        child: Text(
-                          'Loading',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      itemCount: data.movies.length,
+                    ),
+                  ),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: _loadMore ? 60.0 : 0.0,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.0,
+                    ),
+                    child: Center(
+                      child: SpinKitThreeBounce(
+                        size: 30.0,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   )
