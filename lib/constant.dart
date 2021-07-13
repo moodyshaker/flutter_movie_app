@@ -11,3 +11,10 @@ const String UPCOMING = 'upcoming?';
 const String AIRING_TODAY = 'airing_today?';
 const String ON_THE_AIR = 'on_the_air?';
 const String SUCCESS = 'success';
+
+enum NetworkState {
+  SUCCESS,
+  ERROR,
+  PAGING,
+  WAITING,
+}

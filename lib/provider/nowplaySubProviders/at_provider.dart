@@ -8,20 +8,29 @@ import 'package:http/http.dart';
 
 class ATSProvider with ChangeNotifier {
   int _pageNum = 1;
-  bool loadMore = false;
-  List<Results> _series = [];
+  List<Results> _series;
+  NetworkState _state;
 
   int get pageNum => _pageNum;
 
   List<Results> get series => _series;
 
-  Future<String> getATSeries() async {
-    try {
-      Response r = await get(
-        Uri.parse(
-          '$SERIES_BASE_URL$AIRING_TODAY$API_KEY$PAGES$_pageNum',
-        ),
-      );
+  Future<void> getATSeries({
+    @required bool isPaging,
+  }) async {
+    if (!isPaging) {
+      _state = NetworkState.WAITING;
+    } else {
+      _pageNum++;
+      _state = NetworkState.PAGING;
+      notifyListeners();
+    }
+    Response r = await get(
+      Uri.parse(
+        '$SERIES_BASE_URL$AIRING_TODAY$API_KEY$PAGES$_pageNum',
+      ),
+    );
+    if (r.statusCode >= 200 && r.statusCode < 300) {
       Series s = Series.fromJson(json.decode(r.body));
       if (_pageNum > 1) {
         _series.addAll(s.results);
@@ -29,26 +38,20 @@ class ATSProvider with ChangeNotifier {
         _series = [];
         _series.addAll(s.results);
       }
-      return SUCCESS;
-    } catch (e) {
-      return e.toString();
+      _state = NetworkState.SUCCESS;
+    } else {
+      _state = NetworkState.ERROR;
     }
+    notifyListeners();
   }
 
-  Future<void> nextPage() async {
-    loadMore = true;
-    notifyListeners();
-    _pageNum++;
-    await getATSeries();
-    loadMore = false;
-    notifyListeners();
-  }
+  NetworkState get state => _state;
 
   Future<void> reloadPage() async {
     _series.clear();
     notifyListeners();
     _pageNum = 1;
-    await getATSeries();
+    await getATSeries(isPaging: false);
     notifyListeners();
   }
 }

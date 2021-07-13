@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_movie_app/constant.dart';
 import 'package:flutter_movie_app/provider/nowplaySubProviders/m_provider.dart';
+import 'package:flutter_movie_app/widgets/loading_widget.dart';
 import 'package:flutter_movie_app/widgets/moive_item.dart';
+import 'package:flutter_movie_app/widgets/movie_error_widget.dart';
+import 'package:flutter_movie_app/widgets/paging_loading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
@@ -20,24 +25,13 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
     super.initState();
     _controller = ScrollController();
     _npmProvider = Provider.of<NPMProvider>(context, listen: false);
-    getMovies();
+    _npmProvider.getNPMovies(isPaging: false);
     _controller.addListener(() {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        if (!_loadMore) {
-          setState(() {
-            _loadMore = true;
-          });
-          loadMore();
+        if (_npmProvider.state != NetworkState.PAGING) {
+          _npmProvider.getNPMovies(isPaging: true);
         }
       }
-    });
-  }
-
-  void getMovies() async {
-    _npmProvider.setPage(1);
-    await _npmProvider.getNPMovies();
-    setState(() {
-      _isLoading = false;
     });
   }
 
@@ -50,50 +44,34 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
   @override
   Widget build(BuildContext context) {
     return Consumer<NPMProvider>(
-      builder: (context, data, child) => _isLoading
-          ? Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-              ),
-            )
-          : RefreshIndicator(
-              onRefresh: () => data.reloadPage(),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: GridView.builder(
-                      controller: _controller,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 8 / 12),
-                      itemBuilder: (context, i) => MovieItem(
-                        item: data.movies[i],
+      builder: (context, data, child) => data.state == NetworkState.WAITING
+          ? const LoadingWidget()
+          : data.state == NetworkState.ERROR
+              ? const MovieErrorWidget()
+              : RefreshIndicator(
+                  onRefresh: () => data.reloadPage(),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          controller: _controller,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 8 / 12,
+                          ),
+                          itemBuilder: (context, i) => MovieItem(
+                            item: data.movies[i],
+                          ),
+                          itemCount: data.movies.length,
+                        ),
                       ),
-                      itemCount: data.movies.length,
-                    ),
+                      PagingLoading(
+                        isPaging: data.state == NetworkState.PAGING,
+                      ),
+                    ],
                   ),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    height: _loadMore ? 60.0 : 0.0,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 8.0,
-                    ),
-                    child: Center(
-                      child: SpinKitThreeBounce(
-                        size: 30.0,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+                ),
     );
-  }
-
-  void loadMore() async {
-    await _npmProvider.nextPage();
-    setState(() {
-      _loadMore = false;
-    });
   }
 }
