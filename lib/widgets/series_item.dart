@@ -71,9 +71,10 @@ class SeriesItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        DateFormat.yMMMd().format(
-                          DateTime.parse(item.firstAirDate),
-                        ),
+                        item.firstAirDate.isNotEmpty
+                            ? DateFormat.yMMMd()
+                                .format(DateTime.parse(item.firstAirDate))
+                            : 'no date',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontWeight: FontWeight.w800,

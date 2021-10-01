@@ -68,6 +68,9 @@ class MovieApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // themeMode: Settings.isDark ? ThemeMode.dark : ThemeMode.light,
         theme: ThemeData.light().copyWith(
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.indigo,
+          ),
           primaryColor: Colors.indigo,
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             unselectedItemColor: Colors.grey,
