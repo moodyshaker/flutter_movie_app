@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_movie_app/utilites/constant.dart';
 import 'package:flutter_movie_app/models/series/series.dart';
