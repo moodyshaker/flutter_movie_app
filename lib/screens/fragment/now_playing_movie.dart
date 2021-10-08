@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_movie_app/constant.dart';
+import 'package:flutter_movie_app/utilites/constant.dart';
 import 'package:flutter_movie_app/provider/nowplaySubProviders/m_provider.dart';
 import 'package:flutter_movie_app/widgets/loading_widget.dart';
 import 'package:flutter_movie_app/widgets/moive_item.dart';

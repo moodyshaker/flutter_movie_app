@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../constant.dart';
+import '../utilites/constant.dart';
 
 class SeriesItem extends StatelessWidget {
   final Results item;

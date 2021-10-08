@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/constant.dart';
+import 'package:flutter_movie_app/utilites/constant.dart';
 import 'package:flutter_movie_app/provider/nowplaySubProviders/at_provider.dart';
 import 'package:flutter_movie_app/widgets/loading_widget.dart';
 import 'package:flutter_movie_app/widgets/movie_error_widget.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_movie_app/constant.dart';
+import 'package:flutter_movie_app/utilites/constant.dart';
 import 'package:flutter_movie_app/models/movies/movie.dart';
 import 'package:flutter_movie_app/models/movies/movie_result.dart';
 import 'package:http/http.dart';

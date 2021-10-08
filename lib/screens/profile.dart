@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/widgets/user_favourite_item.dart';
+import 'package:flutter_movie_app/models/profile_model.dart';
+import 'package:flutter_movie_app/utilites/constant.dart';
 import 'search.dart';
 
 class Profile extends StatefulWidget {
@@ -9,30 +10,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  // IconData loginIcon = SimpleLineIcons.login;
-
   @override
   Widget build(BuildContext context) {
-    // final homeProvider = Provider.of<HomeProvider>(context);
-    // final settingsProvider = Provider.of<SettingsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(
-              right: 10.0,
-            ),
-            child: IconButton(
-              onPressed: () => Navigator.pushNamed(context, Search.id),
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 25.0,
-              ),
-            ),
-          )
-        ],
         title: Text(
           'Profile',
         ),
@@ -44,145 +26,72 @@ class _ProfileState extends State<Profile> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Card(
-                elevation: 6.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 100.0,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50.0),
-                          color: Colors.indigo,
-                        ),
-                        padding: EdgeInsets.all(4.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50.0),
-                          child: FancyShimmerImage(
-                            imageUrl:
-                                'https://cdn.pixabay.com/photo/2016/08/29/08/55/work-1627703_960_720.jpg',
-                          ),
-                        ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50.0),
+                      child: FancyShimmerImage(
+                        imageUrl:
+                            'https://cdn.pixabay.com/photo/2016/08/29/08/55/work-1627703_960_720.jpg',
+                        boxFit: BoxFit.fill,
+                        height: 70.0,
+                        width: 70.0,
                       ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Hi, Ahmed Shaker',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
-                      Text(
-                        'See your profile',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 40.0,
-                        ),
-                        child: Divider(
-                          height: 2.0,
-                          color: Colors.grey[500],
-                          thickness: 1.0,
-                        ),
-                      ),
-                      Row(
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          UserFavourite(
-                            icon: Icons.remove_red_eye,
-                            title: 'Seenlist',
-                            onPress: () {},
-                            itemsCount: 2,
-                            iconColor: Colors.green[800],
-                            titleColor: Colors.green[800],
-                            itemCountColor: Colors.green[800],
-                          ),
-                          Container(
-                            height: 100.0,
-                            child: VerticalDivider(
-                              width: 2.0,
+                          Text(
+                            'Ahmed Shaker',
+                            style: TextStyle(
                               color: Colors.black,
-                              thickness: 1.0,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          UserFavourite(
-                            icon: Icons.favorite,
-                            title: 'Wishlist',
-                            onPress: () {},
-                            itemsCount: 10,
-                            iconColor: Colors.red[800],
-                            titleColor: Colors.red[800],
-                            itemCountColor: Colors.red[800],
+                          SizedBox(height: 8.0),
+                          Text(
+                            'Ahmed.shaker38@hotmail.com',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16.0,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-              // Row(
-              //   children: [
-              //     SettingItem(
-              //       title: settingsProvider.logText,
-              //       onPress: settingsProvider.firstTimeToggle,
-              //       icon: settingsProvider.isFirstTime
-              //           ? loginIcon = SimpleLineIcons.login
-              //           : loginIcon = SimpleLineIcons.logout,
-              //       titleColor: Colors.blue[800],
-              //       iconColor: Colors.blue[800],
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 20.0,
-              // ),
-              // Row(
-              //   children: [
-              //     SettingItem(
-              //       title: data.isDark ? 'Dark Mode' : 'Light Mode',
-              //       // cardBackground: data.isDark ? Colors.white : Colors.grey[500],
-              //       onPress: () {
-              //         data.isDarkTrigger();
-              //       },
-              //       icon: FontAwesome5.moon,
-              //       titleColor: data.isDark ? Colors.white : Colors.black,
-              //       iconColor: data.isDark ? Colors.white : Colors.black,
-              //     ),
-              //     SettingItem(
-              //       title: 'About App',
-              //       onPress: () {
-              //         Navigator.pushNamed(
-              //           context,
-              //           AboutApp.id,
-              //         );
-              //       },
-              //       icon: Icons.info_outline,
-              //       titleColor: Colors.blueGrey,
-              //       iconColor: Colors.blueGrey,
-              //     ),
-              //   ],
-              // )
+              ...profileItems
+                  .map(
+                    (ProfileModel i) => ListTile(
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      title: Text(i.title),
+                      leading: Container(
+                          padding: EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: i.color.withOpacity(0.1)),
+                          child: Icon(
+                            i.icon,
+                            color: i.color,
+                          )),
+                      onTap: () {},
+                    ),
+                  )
+                  .toList(),
             ],
           ),
         ),
